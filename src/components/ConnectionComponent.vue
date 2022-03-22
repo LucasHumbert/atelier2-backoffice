@@ -27,6 +27,8 @@ export default {
     connection(){
       if (this.email && this.password) {
         console.log('connexion')
+        this.$store.commit('setToken', "1111")
+        this.$router.push('/')
       } else {
         this.$buefy.toast.open({
           duration: 5000,

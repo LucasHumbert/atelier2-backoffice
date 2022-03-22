@@ -1,11 +1,23 @@
 <template>
 <div class="box mt-5 columns">
+  <b-tooltip v-if="event.inactive" class="inactiveElement" label="Événement inactif">
+  </b-tooltip>
   <div class="column is-3 aText"><span class="has-text-weight-bold">Titre</span> <br> {{ event.title }}</div>
   <div class="column is-3 aText"><span class="has-text-weight-bold">Créateur</span> <br> {{ event.creator }}</div>
   <div class="column is-3 aText"><span class="has-text-weight-bold">Date</span> <br> {{ event.date }}</div>
   <div class="column is-flex is-justify-content-right">
-    <button class="button is-info mr-3" @click="isCardModalActive = true">Infos</button>
-    <button class="button is-danger">Supprimer</button>
+    <b-button type="is-info"
+              class="mr-3"
+              icon-pack="fa-solid"
+              icon-right="circle-info"
+              @click="isCardModalActive = true">
+      Infos
+    </b-button>
+    <b-button type="is-danger"
+              icon-pack="fa-solid"
+              icon-right="trash">
+      Supprimer
+    </b-button>
   </div>
 
   <b-modal v-model="isCardModalActive" :width="640" scroll="keep">
@@ -47,13 +59,24 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.box{
+  position: relative;
+
+  .inactiveElement {
+    position: absolute;
+    left: 10px;
+    top: -2px;
+    background-color: #E00000;
+    width: 15px;
+    height: 20px;
+    box-shadow: 1px 1px 2px black;
+  }
+}
+
 .aText{
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-span{
-
 }
 </style>

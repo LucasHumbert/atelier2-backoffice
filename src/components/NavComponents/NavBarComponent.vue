@@ -19,12 +19,25 @@
         Utilisateurs
       </b-navbar-item>
     </template>
+    <template #end>
+      <b-navbar-item tag="div">
+        <a class="button is-primary" @click="deconnection">
+          <strong>Deconnexion</strong>
+        </a>
+      </b-navbar-item>
+    </template>
   </b-navbar>
 </template>
 
 <script>
 export default {
-  name: "NavBarComponent"
+  name: "NavBarComponent",
+  methods: {
+    deconnection() {
+      this.$store.commit('setToken', false)
+      this.$router.push('/connection')
+    }
+  }
 }
 </script>
 

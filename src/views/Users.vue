@@ -1,7 +1,17 @@
 <template>
   <div>
     <h1 class="has-text-centered title">Liste des utilisateurs</h1>
-    <div v-for="user in users" class="container">
+
+    <div class="is-flex is-justify-content-center">
+      <b-field class="has-text-centered">
+        <b-checkbox v-model="checkbox">Voir seulement les utilisateurs inactifs</b-checkbox>
+      </b-field>
+      <b-tooltip id="inactiveElement" label="Événement inactif">
+      </b-tooltip>
+    </div>
+
+
+    <div v-for="user in filteredUsers" class="container">
       <OneUserComponent :user="user"></OneUserComponent>
     </div>
   </div>
@@ -17,20 +27,46 @@ export default {
   },
   data() {
     return {
+      checkbox: this.$store.state.toggleInactivityUsers,
       users: [
-        {firstname: "Lucas", lastname: "Humbert", email: "lucas@gmail.com", lastConnection: "12/02/2021"},
-        {firstname: "Lucas", lastname: "Humbert", email: "lucas@gmail.com", lastConnection: "12/02/2021"},
-        {firstname: "Lucas", lastname: "Humbert", email: "lucas@gmail.com", lastConnection: "12/02/2021"},
-        {firstname: "Lucas", lastname: "Humbert", email: "lucas@gmail.com", lastConnection: "12/02/2021"},
-        {firstname: "Lucas", lastname: "Humbert", email: "lucas@gmail.com", lastConnection: "12/02/2021"},
-        {firstname: "Lucas", lastname: "Humbert", email: "lucas@gmail.com", lastConnection: "12/02/2021"},
-        {firstname: "Lucas", lastname: "Humbert", email: "lucas@gmail.com", lastConnection: "12/02/2021"},
+        {firstname: "Lucas", lastname: "Humbert", email: "lucas@gmail.com", lastConnection: "12/02/2021", inactive: 1},
+        {firstname: "Lucas", lastname: "Humbert", email: "lucas@gmail.com", lastConnection: "12/02/2021", inactive: 0},
+        {firstname: "Lucas", lastname: "Humbert", email: "lucas@gmail.com", lastConnection: "12/02/2021", inactive: 1},
+        {firstname: "Lucas", lastname: "Humbert", email: "lucas@gmail.com", lastConnection: "12/02/2021", inactive: 1},
+        {firstname: "Lucas", lastname: "Humbert", email: "lucas@gmail.com", lastConnection: "12/02/2021", inactive: 0},
+        {firstname: "Lucas", lastname: "Humbert", email: "lucas@gmail.com", lastConnection: "12/02/2021", inactive: 1},
+        {firstname: "Lucas", lastname: "Humbert", email: "lucas@gmail.com", lastConnection: "12/02/2021", inactive: 0},
+
       ]
+    }
+  },
+  computed: {
+    filteredUsers() {
+      if (this.checkbox) {
+        this.setCheckBoxTrue()
+        return this.users.filter(event => event.inactive)
+      } else {
+        this.setCheckBoxFalse()
+        return this.users;
+      }
+    }
+  },
+  methods: {
+    setCheckBoxTrue() {
+      this.$store.commit('setInactivityUsers', true)
+    },
+    setCheckBoxFalse() {
+      this.$store.commit('setInactivityUsers', false)
     }
   }
 }
 </script>
 
 <style scoped>
-
+#inactiveElement{
+  background-color: #E00000;
+  width: 15px;
+  height: 20px;
+  box-shadow: 1px 1px 2px black;
+}
 </style>
