@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Events from "@/views/Events";
 import Users from "@/views/Users";
+import Connection from "@/views/Connection";
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,11 @@ const routes = [
     path: '/users',
     name: 'users',
     component: Users
+  },
+  {
+    path: '/connection',
+    name: 'connection',
+    component: Connection
   }
 ]
 
