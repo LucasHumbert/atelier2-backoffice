@@ -17,7 +17,7 @@ export default {
   data() {
     return {
       events: [
-        {title: "title", desc: "desc", creator: "moi", date: "12/02/2022"},
+        {title: "title", desc: "desc", creator: "moi", date: "12/02/2022", },
         {title: "title", desc: "desc", creator: "moi", date: "12/02/2022"},
         {title: "title", desc: "desc", creator: "moi", date: "12/02/2022"},
         {title: "title", desc: "desc", creator: "moi", date: "12/02/2022"},
