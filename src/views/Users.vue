@@ -6,7 +6,7 @@
       <b-field class="has-text-centered">
         <b-checkbox v-model="checkbox">Voir seulement les utilisateurs inactifs</b-checkbox>
       </b-field>
-      <b-tooltip id="inactiveElement" label="Événement inactif">
+      <b-tooltip id="inactiveElement" label="Utilisateurs inactifs">
       </b-tooltip>
     </div>
 

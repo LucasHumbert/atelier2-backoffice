@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <template v-if="this.$store.state.connexionToken">
+    <template v-if="this.$store.state.backOfficeToken">
       <NavBarComponent></NavBarComponent>
     </template>
     <template v-else>
@@ -21,7 +21,7 @@ export default {
     NavBarNotConnectedComponent
   },
   mounted() {
-    if (!this.$store.state.connexionToken) {
+    if (!this.$store.state.backOfficeToken) {
       this.$router.push('/connection')
     }
   }

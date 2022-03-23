@@ -13,7 +13,7 @@ export default {
     ConnectionComponent
   },
   mounted() {
-    if (this.$store.state.connexionToken) {
+    if (this.$store.state.backOfficeToken) {
       this.$router.push("/")
     }
   }

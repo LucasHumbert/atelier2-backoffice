@@ -25,6 +25,9 @@ Vue.component('l-marker', LMarker);
 Vue.use(Buefy)
 Vue.use(VueAxios, axios)
 
+Vue.prototype.$urlAuth = 'http://api.auth.local:62563/';
+Vue.prototype.$urlBackOffice = 'http://api.backoffice.local:62564/';
+
 Vue.config.productionTip = false
 
 new Vue({

@@ -6,7 +6,7 @@
       <b-field class="has-text-centered">
         <b-checkbox v-model="checkbox">Voir seulement les événements inactifs</b-checkbox>
       </b-field>
-      <b-tooltip id="inactiveElement" label="Événement inactif">
+      <b-tooltip id="inactiveElement" label="Événements inactifs">
       </b-tooltip>
     </div>
 
@@ -26,16 +26,16 @@ export default {
   data() {
     return {
       checkbox: this.$store.state.toggleInactivityEvents,
-      events: [
-        {title: "Un titre", desc: "Une desc", creator: "moi", date: "12/02/2022", inactive: 1},
-        {title: "aze", desc: "pppppp", creator: "moi", date: "12/02/2022", inactive: 0},
-        {title: "test", desc: "test stsq", creator: "moi", date: "12/02/2022", inactive: 0},
-        {title: "title", desc: "desc", creator: "moi", date: "12/02/2022", inactive: 1},
-        {title: "moiaze", desc: "une description plutot longue", creator: "moi", date: "12/02/2022", inactive: 0},
-        {title: "mamcita", desc: "mamaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", creator: "moi", date: "12/02/2022", inactive: 1},
-
-      ]
+      events: []
     }
+  },
+  mounted() {
+    this.axios.get(`${this.$urlBackOffice}events`, {
+      headers: { Authorization: `Bearer ${this.$store.state.backOfficeToken}` }
+    })
+    .then(response => {
+      console.log(response.data)
+    })
   },
   computed: {
     filteredEvents() {

@@ -10,7 +10,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    connexionToken: "222455",
+    backOfficeToken: "222455",
     toggleInactivityEvents: true,
     toggleInactivityUsers: true
   },
@@ -18,7 +18,7 @@ export default new Vuex.Store({
   },
   mutations: {
     setToken(state, token){
-      state.connexionToken = token
+      state.backOfficeToken = token
     },
     setInactivityEvents(state, value) {
       state.toggleInactivityEvents = value

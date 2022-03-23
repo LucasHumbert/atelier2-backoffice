@@ -26,9 +26,24 @@ export default {
   methods: {
     connection(){
       if (this.email && this.password) {
-        console.log('connexion')
-        this.$store.commit('setToken', "1111")
-        this.$router.push('/')
+        this.axios.get(`${this.$urlAuth}auth`, {
+          auth: {
+            username: this.email,
+            password: this.password
+          }
+        })
+        .then(response => {
+          this.$store.commit('setToken', response.data.accessToken)
+          this.$router.push('/')
+        })
+        .catch(() => {
+          this.$buefy.toast.open({
+            duration: 5000,
+            message: `Erreur d'authentification`,
+            position: 'is-bottom',
+            type: 'is-danger'
+          })
+        })
       } else {
         this.$buefy.toast.open({
           duration: 5000,
