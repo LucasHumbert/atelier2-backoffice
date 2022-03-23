@@ -34,7 +34,7 @@ export default {
       headers: { Authorization: `Bearer ${this.$store.state.backOfficeToken}` }
     })
     .then(response => {
-      console.log(response.data)
+      this.events = response.data.events
     })
   },
   computed: {

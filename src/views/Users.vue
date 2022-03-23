@@ -28,16 +28,7 @@ export default {
   data() {
     return {
       checkbox: this.$store.state.toggleInactivityUsers,
-      users: [
-        {firstname: "Lucas", lastname: "Humbert", email: "lucas@gmail.com", lastConnection: "12/02/2021", inactive: 1},
-        {firstname: "Lucas", lastname: "Humbert", email: "lucas@gmail.com", lastConnection: "12/02/2021", inactive: 0},
-        {firstname: "Lucas", lastname: "Humbert", email: "lucas@gmail.com", lastConnection: "12/02/2021", inactive: 1},
-        {firstname: "Lucas", lastname: "Humbert", email: "lucas@gmail.com", lastConnection: "12/02/2021", inactive: 1},
-        {firstname: "Lucas", lastname: "Humbert", email: "lucas@gmail.com", lastConnection: "12/02/2021", inactive: 0},
-        {firstname: "Lucas", lastname: "Humbert", email: "lucas@gmail.com", lastConnection: "12/02/2021", inactive: 1},
-        {firstname: "Lucas", lastname: "Humbert", email: "lucas@gmail.com", lastConnection: "12/02/2021", inactive: 0},
-
-      ]
+      users: []
     }
   },
   computed: {
@@ -50,6 +41,14 @@ export default {
         return this.users;
       }
     }
+  },
+  mounted() {
+    this.axios.get(`${this.$urlBackOffice}users`, {
+      headers: { Authorization: `Bearer ${this.$store.state.backOfficeToken}` }
+    })
+    .then(response => {
+      this.users = response.data.users
+    })
   },
   methods: {
     setCheckBoxTrue() {
