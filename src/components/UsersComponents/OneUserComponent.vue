@@ -3,10 +3,15 @@
   <b-tooltip v-if="user.inactive" class="inactiveElement" label="Utilisateur inactif">
   </b-tooltip>
   <div class="column is-3 aText"><span class="has-text-weight-bold">Nom</span> <br> {{ name }}</div>
-  <div class="column is-3 aText"><span class="has-text-weight-bold">Email</span> <br> {{ user.email }}</div>
-  <div class="column is-3 aText"><span class="has-text-weight-bold">Dernière connexion</span> <br> {{ user.lastConnection }}</div>
+  <div class="column is-3 aText"><span class="has-text-weight-bold">Email</span> <br> {{ user.mail }}</div>
+  <div class="column is-3 aText"><span class="has-text-weight-bold">Dernière connexion</span> <br> {{ user.updated_at }}</div>
   <div class="column is-flex is-justify-content-right">
-    <button class="button is-danger">Supprimer</button>
+    <b-button type="is-danger"
+              icon-pack="fa-solid"
+              icon-right="trash"
+              @click="deleteUser">
+      Supprimer
+    </b-button>
   </div>
 </div>
 </template>
@@ -18,6 +23,20 @@ export default {
   computed:{
     name(){
       return this.user.firstname + " " + this.user.lastname
+    }
+  },
+  methods: {
+    deleteUser() {
+      this.axios.delete(`${this.$urlBackOffice}users/${this.user.id}`, {
+        headers: { Authorization: `Bearer ${this.$store.state.backOfficeToken}` }
+      })
+      .then(() => {
+        this.$store.commit('setUsers', this.$store.state.users.filter(el => { return el.id !== this.user.id }))
+        this.$buefy.toast.open({
+          duration: 2000,
+          message: `Utilisateur supprimé`
+        })
+      })
     }
   }
 }

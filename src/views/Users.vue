@@ -6,7 +6,7 @@
       <b-field class="has-text-centered">
         <b-checkbox v-model="checkbox">Voir seulement les utilisateurs inactifs</b-checkbox>
       </b-field>
-      <b-tooltip id="inactiveElement" label="Événement inactif">
+      <b-tooltip id="inactiveElement" label="Utilisateurs inactifs">
       </b-tooltip>
     </div>
 
@@ -27,27 +27,17 @@ export default {
   },
   data() {
     return {
-      checkbox: this.$store.state.toggleInactivityUsers,
-      users: [
-        {firstname: "Lucas", lastname: "Humbert", email: "lucas@gmail.com", lastConnection: "12/02/2021", inactive: 1},
-        {firstname: "Lucas", lastname: "Humbert", email: "lucas@gmail.com", lastConnection: "12/02/2021", inactive: 0},
-        {firstname: "Lucas", lastname: "Humbert", email: "lucas@gmail.com", lastConnection: "12/02/2021", inactive: 1},
-        {firstname: "Lucas", lastname: "Humbert", email: "lucas@gmail.com", lastConnection: "12/02/2021", inactive: 1},
-        {firstname: "Lucas", lastname: "Humbert", email: "lucas@gmail.com", lastConnection: "12/02/2021", inactive: 0},
-        {firstname: "Lucas", lastname: "Humbert", email: "lucas@gmail.com", lastConnection: "12/02/2021", inactive: 1},
-        {firstname: "Lucas", lastname: "Humbert", email: "lucas@gmail.com", lastConnection: "12/02/2021", inactive: 0},
-
-      ]
+      checkbox: this.$store.state.toggleInactivityUsers
     }
   },
   computed: {
     filteredUsers() {
       if (this.checkbox) {
         this.setCheckBoxTrue()
-        return this.users.filter(event => event.inactive)
+        return this.$store.state.users.filter(event => event.inactive)
       } else {
         this.setCheckBoxFalse()
-        return this.users;
+        return this.$store.state.users;
       }
     }
   },

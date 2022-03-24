@@ -1,15 +1,15 @@
 <template>
-<div class="box columns">
+<div v-if="ready" class="box columns">
   <div class="column is-4 has-text-centered">
-    <span class="is-size-2">{{ nbEvents }}</span>
+    <span class="is-size-2">{{ datas.nbEvents }}</span>
     <p class="mt-3 is-size-5">événements crées</p>
   </div>
   <div class="column is-4 has-text-centered">
-    <span class="is-size-2">{{ nbUsers }}</span>
+    <span class="is-size-2">{{ datas.nbUsers }}</span>
     <p class="mt-3 is-size-5">utilisateurs inscrits</p>
   </div>
   <div class="column is-4 has-text-centered">
-    <span class="is-size-2">{{ nbMessages }}</span>
+    <span class="is-size-2">{{ datas.nbMessages }}</span>
     <p class="mt-3 is-size-5">messages postés</p>
   </div>
 </div>
@@ -20,10 +20,21 @@ export default {
   name: "HomeDatasComponent",
   data() {
     return {
-      nbEvents: 80,
-      nbUsers: 192,
-      nbMessages: 265
+      datas: [],
+      ready: false
     }
+  },
+  mounted() {
+    this.axios.get(`${this.$urlBackOffice}homeInfos`, {
+      headers: { Authorization: `Bearer ${this.$store.state.backOfficeToken}` }
+    })
+    .then(response => {
+      this.datas = response.data
+      this.ready = true
+    })
+    .catch(() => {
+      this.$router.push('/error')
+    })
   }
 }
 </script>
