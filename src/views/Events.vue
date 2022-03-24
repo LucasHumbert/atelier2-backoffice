@@ -25,26 +25,17 @@ export default {
   },
   data() {
     return {
-      checkbox: this.$store.state.toggleInactivityEvents,
-      events: []
+      checkbox: this.$store.state.toggleInactivityEvents
     }
-  },
-  mounted() {
-    this.axios.get(`${this.$urlBackOffice}events`, {
-      headers: { Authorization: `Bearer ${this.$store.state.backOfficeToken}` }
-    })
-    .then(response => {
-      this.events = response.data.events
-    })
   },
   computed: {
     filteredEvents() {
       if (this.checkbox) {
         this.setCheckBoxTrue()
-        return this.events.filter(event => event.inactive)
+        return this.$store.state.events.filter(event => event.inactive)
       } else {
         this.setCheckBoxFalse()
-        return this.events;
+        return this.$store.state.events;
       }
     }
   },

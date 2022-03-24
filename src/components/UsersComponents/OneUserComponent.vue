@@ -1,32 +1,25 @@
 <template>
-<transition v-if="display" name="fade">
-  <div class="box mt-5 columns">
-    <b-tooltip v-if="user.inactive" class="inactiveElement" label="Utilisateur inactif">
-    </b-tooltip>
-    <div class="column is-3 aText"><span class="has-text-weight-bold">Nom</span> <br> {{ name }}</div>
-    <div class="column is-3 aText"><span class="has-text-weight-bold">Email</span> <br> {{ user.mail }}</div>
-    <div class="column is-3 aText"><span class="has-text-weight-bold">Dernière connexion</span> <br> {{ user.updated_at }}</div>
-    <div class="column is-flex is-justify-content-right">
-      <b-button type="is-danger"
-                icon-pack="fa-solid"
-                icon-right="trash"
-                @click="deleteUser">
-        Supprimer
-      </b-button>
-    </div>
+<div class="box mt-5 columns">
+  <b-tooltip v-if="user.inactive" class="inactiveElement" label="Utilisateur inactif">
+  </b-tooltip>
+  <div class="column is-3 aText"><span class="has-text-weight-bold">Nom</span> <br> {{ name }}</div>
+  <div class="column is-3 aText"><span class="has-text-weight-bold">Email</span> <br> {{ user.mail }}</div>
+  <div class="column is-3 aText"><span class="has-text-weight-bold">Dernière connexion</span> <br> {{ user.updated_at }}</div>
+  <div class="column is-flex is-justify-content-right">
+    <b-button type="is-danger"
+              icon-pack="fa-solid"
+              icon-right="trash"
+              @click="deleteUser">
+      Supprimer
+    </b-button>
   </div>
-</transition>
+</div>
 </template>
 
 <script>
 export default {
   name: "OneUserComponent",
   props: ["user"],
-  data(){
-    return {
-      display: true
-    }
-  },
   computed:{
     name(){
       return this.user.firstname + " " + this.user.lastname
@@ -38,7 +31,7 @@ export default {
         headers: { Authorization: `Bearer ${this.$store.state.backOfficeToken}` }
       })
       .then(() => {
-        this.display = false
+        this.$store.commit('setUsers', this.$store.state.users.filter(el => { return el.id !== this.user.id }))
         this.$buefy.toast.open({
           duration: 2000,
           message: `Utilisateur supprimé`

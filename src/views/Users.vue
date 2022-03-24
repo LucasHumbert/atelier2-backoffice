@@ -27,28 +27,19 @@ export default {
   },
   data() {
     return {
-      checkbox: this.$store.state.toggleInactivityUsers,
-      users: []
+      checkbox: this.$store.state.toggleInactivityUsers
     }
   },
   computed: {
     filteredUsers() {
       if (this.checkbox) {
         this.setCheckBoxTrue()
-        return this.users.filter(event => event.inactive)
+        return this.$store.state.users.filter(event => event.inactive)
       } else {
         this.setCheckBoxFalse()
-        return this.users;
+        return this.$store.state.users;
       }
     }
-  },
-  mounted() {
-    this.axios.get(`${this.$urlBackOffice}users`, {
-      headers: { Authorization: `Bearer ${this.$store.state.backOfficeToken}` }
-    })
-    .then(response => {
-      this.users = response.data.users
-    })
   },
   methods: {
     setCheckBoxTrue() {

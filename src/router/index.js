@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Events from "@/views/Events";
 import Users from "@/views/Users";
 import Connection from "@/views/Connection";
+import ErrorView from "@/views/ErrorView";
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/connection',
     name: 'connection',
     component: Connection
+  },
+  {
+    path: '/error',
+    name: 'error',
+    component: ErrorView
   }
 ]
 
