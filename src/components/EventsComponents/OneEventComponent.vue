@@ -3,7 +3,7 @@
   <b-tooltip v-if="event.inactive" class="inactiveElement" label="Événement inactif">
   </b-tooltip>
   <div class="column is-3 aText"><span class="has-text-weight-bold">Titre</span> <br> {{ event.title }}</div>
-  <div class="column is-3 aText"><span class="has-text-weight-bold">Créateur</span> <br> {{ event.creator }}</div>
+  <div class="column is-3 aText"><span class="has-text-weight-bold">Créateur</span> <br> {{ fullname }}</div>
   <div class="column is-3 aText">
     <div v-if="event.lastMessage"><span class="has-text-weight-bold">Date du dernier message</span> <br> {{ event.lastMessage }}</div>
     <div v-else><span class="has-text-weight-bold">Date de l'événement</span> <br> {{ event.date }}</div>
@@ -37,7 +37,7 @@
       </div>
       <div class="card-content">
         <div class="subtitle is-size-6">
-          Organisé par <span class="is-underlined has-text-weight-bold">{{ event.creator }}</span>
+          Organisé par <span class="is-underlined has-text-weight-bold">{{ fullname }}</span>
           <br>
           Aura lieu le <span class="is-underlined has-text-weight-bold">{{ event.date }}</span>
           <br>
@@ -83,6 +83,11 @@ export default {
           message: `Événement supprimé`
         })
       })
+    }
+  },
+  computed: {
+    fullname() {
+      return this.event.creatorUser.firstname + " " + this.event.creatorUser.lastname
     }
   }
 }
