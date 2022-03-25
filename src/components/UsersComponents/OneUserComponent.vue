@@ -6,6 +6,13 @@
   <div class="column is-3 aText"><span class="has-text-weight-bold">Email</span> <br> {{ user.mail }}</div>
   <div class="column is-3 aText"><span class="has-text-weight-bold">Dernière connexion</span> <br> {{ user.updated_at }}</div>
   <div class="column is-flex is-justify-content-right">
+    <b-button type="is-info"
+              class="mr-3"
+              icon-pack="far"
+              icon-right="user"
+              @click="$router.push({ name: 'userProfil', params: { id: user.id }})">
+      Profil
+    </b-button>
     <b-button type="is-danger"
               icon-pack="fa-solid"
               icon-right="trash"
@@ -36,6 +43,9 @@ export default {
           duration: 2000,
           message: `Utilisateur supprimé`
         })
+      })
+      .catch(() => {
+        this.$router.push('/error')
       })
     }
   }
