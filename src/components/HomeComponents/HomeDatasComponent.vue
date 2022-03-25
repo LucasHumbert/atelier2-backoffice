@@ -2,7 +2,7 @@
 <div v-if="ready" class="box columns">
   <div class="column is-4 has-text-centered">
     <span class="is-size-2">{{ datas.nbEvents }}</span>
-    <p class="mt-3 is-size-5">événements crées</p>
+    <p class="mt-3 is-size-5">événements créés</p>
   </div>
   <div class="column is-4 has-text-centered">
     <span class="is-size-2">{{ datas.nbUsers }}</span>
