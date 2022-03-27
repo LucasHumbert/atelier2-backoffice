@@ -53,6 +53,7 @@ export default {
   data() {
     return {
       checkbox: this.$store.state.toggleInactivityUsers,
+      usersReady: false,
 
       // pagination
       total: 0,
@@ -66,7 +67,19 @@ export default {
     }
   },
   mounted() {
-    this.total = this.$store.state.users.length
+    if (this.$store.state.backOfficeToken) {
+      this.axios.get(`${this.$urlBackOffice}users`, {
+        headers: { Authorization: `Bearer ${this.$store.state.backOfficeToken}` }
+      })
+      .then(response => {
+        this.$store.commit('setUsers', response.data.users)
+        this.usersReady = true
+        this.total = this.$store.state.users.length
+      })
+      .catch(() => {
+        this.$router.push('/error')
+      })
+    }
   },
   computed: {
     pagination () {

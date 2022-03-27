@@ -34,18 +34,23 @@ export default {
   },
   methods: {
     deleteUser() {
-      this.axios.delete(`${this.$urlBackOffice}users/${this.user.id}`, {
-        headers: { Authorization: `Bearer ${this.$store.state.backOfficeToken}` }
-      })
-      .then(() => {
-        this.$store.commit('setUsers', this.$store.state.users.filter(el => { return el.id !== this.user.id }))
-        this.$buefy.toast.open({
-          duration: 2000,
-          message: `Utilisateur supprimé`
-        })
-      })
-      .catch(() => {
-        this.$router.push('/error')
+      this.$buefy.dialog.confirm({
+        message: `Voulez vous vraiment supprimer l'utilisateur ${this.name} ?`,
+        onConfirm: () => {
+          this.axios.delete(`${this.$urlBackOffice}users/${this.user.id}`, {
+            headers: { Authorization: `Bearer ${this.$store.state.backOfficeToken}` }
+          })
+          .then(() => {
+            this.$store.commit('setUsers', this.$store.state.users.filter(el => { return el.id !== this.user.id }))
+            this.$buefy.toast.open({
+              duration: 2000,
+              message: `Utilisateur supprimé`
+            })
+          })
+          .catch(() => {
+            this.$router.push('/error')
+          })
+        }
       })
     }
   }

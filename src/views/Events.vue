@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="eventsReady">
     <h1 class="has-text-centered title">Liste des événements</h1>
     <div class="is-flex is-justify-content-center">
       <b-field class="has-text-centered">
@@ -51,6 +51,7 @@ export default {
   data() {
     return {
       checkbox: this.$store.state.toggleInactivityEvents,
+      eventsReady: false,
 
       // pagination
       total: 0,
@@ -64,7 +65,19 @@ export default {
     }
   },
   mounted() {
-    this.total = this.$store.state.events.length
+    if (this.$store.state.backOfficeToken) {
+      this.axios.get(`${this.$urlBackOffice}events`, {
+        headers: { Authorization: `Bearer ${this.$store.state.backOfficeToken}` }
+      })
+      .then(response => {
+        this.$store.commit('setEvents', response.data.events)
+        this.eventsReady = true
+        this.total = this.$store.state.events.length
+      })
+      .catch(() => {
+        this.$router.push('/error')
+      })
+    }
   },
   computed: {
     pagination () {
