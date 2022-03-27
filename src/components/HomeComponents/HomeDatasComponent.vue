@@ -25,7 +25,7 @@ export default {
     }
   },
   mounted() {
-    if (this.$store.state.backOfficeToken) {
+    if (this.$store.state.backOfficeToken && this.$route.name === 'home') {
       this.axios.get(`${this.$urlBackOffice}homeInfos`, {
         headers: { Authorization: `Bearer ${this.$store.state.backOfficeToken}` }
       })
