@@ -48,19 +48,19 @@ export default {
     }
   },
   mounted() {
-    this.axios.get(`${this.$urlBackOffice}users/${this.$route.params.id}`, {
-      headers: { Authorization: `Bearer ${this.$store.state.backOfficeToken}` }
-    })
-    .then(response => {
-      this.user = response.data.user
-      this.events = response.data.events
-      this.ready = true
-      console.log(this.events)
-      console.log(this.user)
-    })
-    .catch(() => {
-      this.$router.push('/error')
-    })
+    if (this.$store.state.backOfficeToken) {
+      this.axios.get(`${this.$urlBackOffice}users/${this.$route.params.id}`, {
+        headers: { Authorization: `Bearer ${this.$store.state.backOfficeToken}` }
+      })
+      .then(response => {
+        this.user = response.data.user
+        this.events = response.data.events
+        this.ready = true
+      })
+      .catch(() => {
+        this.$router.push('/error')
+      })
+    }
   },
   methods: {
     deleteUser() {

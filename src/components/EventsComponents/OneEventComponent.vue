@@ -73,18 +73,23 @@ export default {
   },
   methods: {
     deleteEvent() {
-      this.axios.delete(`${this.$urlBackOffice}events/${this.event.id}`, {
-        headers: { Authorization: `Bearer ${this.$store.state.backOfficeToken}` }
-      })
-      .then(() => {
-        this.$store.commit('setEvents', this.$store.state.events.filter(el => { return el.id !== this.event.id }))
-        this.$buefy.toast.open({
-          duration: 2000,
-          message: `Événement supprimé`
-        })
-      })
-      .catch(() => {
-        this.$router.push('/error')
+      this.$buefy.dialog.confirm({
+        message: `Voulez vous vraiment supprimer l'événement ${this.event.title} ?`,
+        onConfirm: () => {
+          this.axios.delete(`${this.$urlBackOffice}events/${this.event.id}`, {
+            headers: { Authorization: `Bearer ${this.$store.state.backOfficeToken}` }
+          })
+          .then(() => {
+            this.$store.commit('setEvents', this.$store.state.events.filter(el => { return el.id !== this.event.id }))
+            this.$buefy.toast.open({
+              duration: 2000,
+              message: `Événement supprimé`
+            })
+          })
+          .catch(() => {
+            this.$router.push('/error')
+          })
+        },
       })
     }
   },

@@ -25,16 +25,18 @@ export default {
     }
   },
   mounted() {
-    this.axios.get(`${this.$urlBackOffice}homeInfos`, {
-      headers: { Authorization: `Bearer ${this.$store.state.backOfficeToken}` }
-    })
-    .then(response => {
-      this.datas = response.data
-      this.ready = true
-    })
-    .catch(() => {
-      this.$router.push('/error')
-    })
+    if (this.$store.state.backOfficeToken) {
+      this.axios.get(`${this.$urlBackOffice}homeInfos`, {
+        headers: { Authorization: `Bearer ${this.$store.state.backOfficeToken}` }
+      })
+      .then(response => {
+        this.datas = response.data
+        this.ready = true
+      })
+      .catch(() => {
+        this.$router.push('/error')
+      })
+    }
   }
 }
 </script>
