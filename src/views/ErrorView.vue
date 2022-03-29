@@ -1,6 +1,6 @@
 <template>
 <div class="has-text-centered">
-  <h1 class="title is-size-2 has-text-centered">Unauthorized</h1>
+  <h1 class="title is-size-2 has-text-centered">Error</h1>
   <b-button type="is-danger"
             icon-pack="fa-solid"
             icon-right="right-to-bracket"
