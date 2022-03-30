@@ -1,4 +1,4 @@
-**~~# Atelier Réunionou - BackOffice
+# Atelier Réunionou - BackOffice
 
 - Lambert Calvin
 - Budzik Valentin 
@@ -32,4 +32,4 @@ npm run serve
 ### Compiler pour la production
 ```
 npm run build
-```**~~
+```
